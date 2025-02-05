@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 import { FormLogoContext, FormLogoState } from "./context/form-logo-context";
 import { FormLogoName } from "./form-logo-name";
+import { FormLogoDescription } from "./form-logo-description";
 
 const FormStateComponent = () => {
   const formLogoContext = useContext(FormLogoContext);
@@ -10,7 +11,7 @@ const FormStateComponent = () => {
     case "name":
       return <FormLogoName />;
     case "description":
-      return <div>Description</div>;
+      return <FormLogoDescription />;
       return;
     default:
       return <div>Defatult</div>;

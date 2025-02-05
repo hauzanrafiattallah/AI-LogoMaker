@@ -12,7 +12,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -20,31 +19,30 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { ArrowRight } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Textarea } from "../ui/textarea";
 
 const formSchema = z.object({
-  name: z
-    .string({ message: "Name is required" })
-    .min(3, { message: "Name must be at least 3 characters" }),
+  description: z
+    .string({ message: "Description is required" })
+    .min(3, { message: "Description must be at least 3 characters" }),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-export const FormLogoName = () => {
-  const params = useSearchParams();
+export const FormLogoDescription = () => {
   const formLogoCtx = useContext(FormLogoContext);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: params.get("name") ?? "",
+      description: "",
     },
   });
 
   function onSubmit(values: FormSchemaType) {
     formLogoCtx.setState({
-      name: "description",
-      values: { ...formLogoCtx.values, name: values.name },
+      name: "description", // TODO
+      values: { ...formLogoCtx.values, name: values.description },
     });
   }
 
@@ -52,10 +50,10 @@ export const FormLogoName = () => {
     <Card>
       <CardHeader>
         <CardTitle className="font-black text-3xl">
-          <h2>Logo Name</h2>
+          <h2>Describe your logo</h2>
         </CardTitle>
         <CardDescription className="font-semibold text-md">
-          Enter your logo name to get started
+          Describe your logo to get started
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -63,12 +61,12 @@ export const FormLogoName = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="name"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your logo name here..."
+                    <Textarea
+                      placeholder="Enter your logo description here..."
                       {...field}
                     />
                   </FormControl>
@@ -76,7 +74,15 @@ export const FormLogoName = () => {
                 </FormItem>
               )}
             />
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+              <Button
+                type="submit"
+                variant="secondary"
+                onClick={() => formLogoCtx.setState({ name: "name" })}
+              >
+                <ArrowLeft />
+                Back
+              </Button>
               <Button type="submit" disabled={!form.formState.isValid}>
                 Next
                 <ArrowRight />
