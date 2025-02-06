@@ -1,7 +1,7 @@
 import { generateLogo } from "@/services/generate-logo";
 import { FormLogoValues } from "@/global.types";
 import { auth } from "@clerk/nextjs/server";
-
+import { storeLogo } from "@/services/store-logo";
 
 export const maxDuration = 60;
 

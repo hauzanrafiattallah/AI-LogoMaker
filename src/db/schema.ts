@@ -1,5 +1,4 @@
-import { create } from "domain";
-import { desc, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const usersImageTable = sqliteTable("usersImage", {
