@@ -200,7 +200,7 @@ export const FormLogoColors = () => {
               <Button
                 type="submit"
                 variant="secondary"
-                onClick={() => formLogoCtx.setState({ name: "name" })}
+                onClick={() => formLogoCtx.setState({ name: "description" })}
               >
                 <ArrowLeft />
                 Back
