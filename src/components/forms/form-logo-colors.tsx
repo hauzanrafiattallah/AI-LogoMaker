@@ -198,7 +198,7 @@ export const FormLogoColors = () => {
             />
             <div className="flex justify-between">
               <Button
-                type="submit"
+                type="button"
                 variant="secondary"
                 onClick={() => formLogoCtx.setState({ name: "description" })}
               >
