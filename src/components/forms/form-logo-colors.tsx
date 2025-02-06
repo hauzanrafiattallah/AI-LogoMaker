@@ -1,10 +1,10 @@
 "use client";
 
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { FormLogoContext } from "./context/form-logo-context";
 import { useContext } from "react";
+import { FormLogoContext } from "./context/form-logo-context";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import {
@@ -94,24 +94,25 @@ const colors: ColorItem[] = [
 ];
 
 const ColorItemComp = ({
+  color,
   isSelected,
   disabled,
   addToSelected,
   removeFromSelected,
-  color,
 }: {
+  color: ColorItem;
   isSelected: boolean;
   disabled: boolean;
   addToSelected: (color: ColorItem) => void;
   removeFromSelected: (color: ColorItem) => void;
-  color: ColorItem;
 }) => {
   return (
     <button
+      type="button"
       className={cn(
         color.itemStyle,
         isSelected ? "border-primary" : "border-background",
-        "border-4 hover:border-primary text-start p-4 h-36 transition-colors duration-200 rounded-lg",
+        "border-4 hover:border-primary text-start p-4 h-36 transition-colors duration-300 rounded-lg",
         disabled ? "brightness-50 cursor-default hover:border-background" : ""
       )}
       onClick={() => {
@@ -122,13 +123,13 @@ const ColorItemComp = ({
         return addToSelected(color);
       }}
     >
-      <div className="text-lg font-semibold">{color.color}</div>
+      <div className="text-xl font-semibold">{color.color}</div>
       <div>{color.psychology}</div>
     </button>
   );
 };
 
-const ColorsSelections = ({
+const ColorSelections = ({
   selected,
   onChange,
 }: {
@@ -158,13 +159,13 @@ export const FormLogoColors = () => {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      colors: [],
+      colors: formLogoCtx.values.colors,
     },
   });
 
   function onSubmit(values: FormSchemaType) {
     formLogoCtx.setState({
-      name: "colors",
+      name: "style",
       values: { ...formLogoCtx.values, colors: values.colors },
     });
   }
@@ -172,11 +173,11 @@ export const FormLogoColors = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-black text-3xl">
-          <h2>Pick Colors</h2>
+        <CardTitle className="font-black text-4xl">
+          <h2>Pick colors</h2>
         </CardTitle>
-        <CardDescription className="font-semibold text-md">
-          Pick colors for your logo
+        <CardDescription className="font-semibold text-lg">
+          Pick colors to perfectly create logo for your business.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -188,7 +189,7 @@ export const FormLogoColors = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <ColorsSelections
+                    <ColorSelections
                       selected={field.value}
                       onChange={(selected) => field.onChange(selected)}
                     />
@@ -199,11 +200,11 @@ export const FormLogoColors = () => {
             <div className="flex justify-between">
               <Button
                 type="button"
-                variant="secondary"
+                variant="outline"
                 onClick={() => formLogoCtx.setState({ name: "description" })}
               >
                 <ArrowLeft />
-                Back
+                Previous
               </Button>
               <Button type="submit" disabled={!form.formState.isValid}>
                 {form.getValues().colors.length === 0 ? "Skip" : "Next"}
