@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
@@ -28,10 +26,10 @@ export const ErrorState = ({ onRetry }: { onRetry: () => void }) => {
   return (
     <div className="flex flex-col place-items-center gap-6 py-16">
       <FileX2 className="size-32 rounded-lg" />
-      <p className="font-semibold text-xl">Failed to generate logo</p>
+      <p className="font-semibold text-xl">Failed generating your logo</p>
       <Button className="font-semibold" onClick={onRetry} size="lg">
         <RotateCcw />
-        Retry
+        RETRY
       </Button>
     </div>
   );
@@ -52,13 +50,13 @@ export const SuccessState = ({ imgSrc }: { imgSrc: string }) => {
         className="size-60 sm:size-96 rounded-lg"
       />
       <div className="flex flex-col gap-4">
-        <Button className="fonts-semibold" size="lg" asChild>
+        <Button className="font-semibold" size="lg" asChild>
           <a download={`${values.name}.png`} href={imgSrc}>
             <Download />
             Download
           </a>
         </Button>
-        <Button className="font-semibold" size="lg" asChild variant="secondary">
+        <Button className="font-semibold" variant="outline" size="lg" asChild>
           <Link href="/dashboard">
             <LayoutDashboard />
             Dashboard
@@ -82,7 +80,7 @@ export const FormLogoResult = () => {
       isError: false,
       imgSrc: null,
     });
-    const response = await fetch("/api/genereate-logo", {
+    const response = await fetch("/api/generate-logo", {
       method: "POST",
       body: JSON.stringify(values),
     });
@@ -101,12 +99,10 @@ export const FormLogoResult = () => {
       imgSrc: data,
     });
   }, [values]);
-
   useEffect(() => {
     generateLogo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <Card>
       <CardContent>

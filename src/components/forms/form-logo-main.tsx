@@ -29,7 +29,12 @@ const FormStateComponent = () => {
 export const FormLogoMain = () => {
   const [state, setState] = useState<FormLogoState>({
     name: "name",
-    values: { name: "", description: "", colors: [], style: "" },
+    values: {
+      name: "",
+      description: "",
+      colors: [],
+      style: "",
+    },
     setState: () => {},
   });
 
@@ -38,6 +43,7 @@ export const FormLogoMain = () => {
       value={{
         ...state,
         setState: (partial) => {
+          console.log(partial);
           setState((prev) => ({ ...prev, ...partial }));
         },
       }}

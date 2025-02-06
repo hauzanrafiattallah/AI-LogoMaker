@@ -1,9 +1,10 @@
 "use client";
+
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { FormLogoContext } from "./context/form-logo-context";
 import { useContext } from "react";
+import { FormLogoContext } from "./context/form-logo-context";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,8 +26,8 @@ import { useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
   name: z
-    .string({ message: "Name is required" })
-    .min(3, { message: "Name must be at least 3 characters" }),
+    .string({ message: "name is required" })
+    .min(3, { message: "min. 3 charater" }),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -37,7 +38,9 @@ export const FormLogoName = () => {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: params.get("name") ?? "",
+      name: formLogoCtx.values.name
+        ? formLogoCtx.values.name
+        : params.get("name") ?? "",
     },
   });
 
@@ -51,11 +54,11 @@ export const FormLogoName = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-black text-3xl">
+        <CardTitle className="font-black text-4xl">
           <h2>Logo Name</h2>
         </CardTitle>
-        <CardDescription className="font-semibold text-md">
-          Enter your logo name to get started
+        <CardDescription className="font-semibold text-lg">
+          Enter your logo name
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -67,10 +70,7 @@ export const FormLogoName = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your logo name here..."
-                      {...field}
-                    />
+                    <Input placeholder="Ex. Sukro" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -1,10 +1,10 @@
 "use client";
 
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { string, z } from "zod";
-import { FormLogoContext } from "./context/form-logo-context";
 import { useContext } from "react";
+import { FormLogoContext } from "./context/form-logo-context";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import {
@@ -65,7 +65,7 @@ const ItemComp = ({
     <div
       onClick={() => onSelect(item)}
       className={cn(
-        "flex flex-col gap-4 border-2 hover: border-primary p-2 ",
+        "flex flex-col gap-4 border-2 hover:border-primary p-2",
         isSelected ? "border-primary" : "border-background"
       )}
     >
@@ -94,7 +94,7 @@ const StyleSelections = ({
           key={item.name}
           item={item}
           isSelected={selected === item.name}
-          onSelect={(item) => onChange(item.name)}
+          onSelect={(v) => onChange(v.name)}
         />
       ))}
     </div>
@@ -120,11 +120,11 @@ export const FormLogoStyles = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-black text-3xl">
-          <h2>Pick Style</h2>
+        <CardTitle className="font-black text-4xl">
+          <h2>Pick style</h2>
         </CardTitle>
-        <CardDescription className="font-semibold text-md">
-          Pick a style for your logo
+        <CardDescription className="font-semibold text-lg">
+          Pick styles for your logo you want to create.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -147,11 +147,11 @@ export const FormLogoStyles = () => {
             <div className="flex justify-between">
               <Button
                 type="button"
-                variant="secondary"
+                variant="outline"
                 onClick={() => formLogoCtx.setState({ name: "colors" })}
               >
                 <ArrowLeft />
-                Back
+                Previous
               </Button>
               <Button type="submit" disabled={!form.formState.isValid}>
                 Next

@@ -1,9 +1,10 @@
 "use client";
+
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { FormLogoContext } from "./context/form-logo-context";
 import { useContext } from "react";
+import { FormLogoContext } from "./context/form-logo-context";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -24,8 +25,8 @@ import { Textarea } from "../ui/textarea";
 
 const formSchema = z.object({
   description: z
-    .string({ message: "Description is required" })
-    .min(3, { message: "Description must be at least 3 characters" }),
+    .string({ message: "description is required" })
+    .min(3, { message: "min. 3 charater" }),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -35,13 +36,13 @@ export const FormLogoDescription = () => {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: "",
+      description: formLogoCtx.values.description,
     },
   });
 
   function onSubmit(values: FormSchemaType) {
     formLogoCtx.setState({
-      name: "colors", 
+      name: "colors",
       values: { ...formLogoCtx.values, description: values.description },
     });
   }
@@ -49,11 +50,12 @@ export const FormLogoDescription = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-black text-3xl">
-          <h2>Describe your logo</h2>
+        <CardTitle className="font-black text-4xl">
+          <h2>Describe your Logo</h2>
         </CardTitle>
-        <CardDescription className="font-semibold text-md">
-          Describe your logo to get started
+        <CardDescription className="font-semibold text-lg">
+          Describe your logo, give an idea to your logo for creating perfect
+          logo for your business
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -66,7 +68,7 @@ export const FormLogoDescription = () => {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      placeholder="Enter your logo description here..."
+                      placeholder="Ex. Sukro is a roasted peanut snack. the logo should contains peanut and fire to represent it is roasted"
                       {...field}
                     />
                   </FormControl>
@@ -76,12 +78,12 @@ export const FormLogoDescription = () => {
             />
             <div className="flex justify-between">
               <Button
-                type="submit"
-                variant="secondary"
+                type="button"
+                variant="outline"
                 onClick={() => formLogoCtx.setState({ name: "name" })}
               >
                 <ArrowLeft />
-                Back
+                Previous
               </Button>
               <Button type="submit" disabled={!form.formState.isValid}>
                 Next
