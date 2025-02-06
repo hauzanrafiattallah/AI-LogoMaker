@@ -32,7 +32,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 
 export const FormLogoDescription = () => {
   const formLogoCtx = useContext(FormLogoContext);
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: "",
@@ -41,8 +41,8 @@ export const FormLogoDescription = () => {
 
   function onSubmit(values: FormSchemaType) {
     formLogoCtx.setState({
-      name: "description", // TODO
-      values: { ...formLogoCtx.values, name: values.description },
+      name: "colors", 
+      values: { ...formLogoCtx.values, description: values.description },
     });
   }
 

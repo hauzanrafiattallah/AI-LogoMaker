@@ -34,7 +34,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 export const FormLogoName = () => {
   const params = useSearchParams();
   const formLogoCtx = useContext(FormLogoContext);
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: params.get("name") ?? "",
