@@ -1,5 +1,5 @@
 import { FormLogoValues } from "@/global.types";
-import { serverConfig } from "@/lib/convig.server";
+import { serverConfig } from "@/lib/config.server";
 
 const generatePrompt = (values: FormLogoValues): string => {
   const prompts = [
@@ -28,7 +28,6 @@ const generateLogoWithTogether = async (prompt: string) => {
     n: 1,
     response_format: "b64_json",
   };
-
   const response = await fetch(
     "https://api.together.xyz/v1/images/generations",
     {
@@ -40,7 +39,6 @@ const generateLogoWithTogether = async (prompt: string) => {
       body: JSON.stringify(payload),
     }
   );
-
   const jsonResponse: {
     data?: { b64_json: string }[];
     error?: { message: string };
@@ -48,8 +46,8 @@ const generateLogoWithTogether = async (prompt: string) => {
   if (jsonResponse.data) {
     return convertToBase64Image(jsonResponse.data[0].b64_json);
   }
-  console.error("Together error: ", jsonResponse.error);
-  throw new Error("Failed generate with Together");
+  console.error("Together error", jsonResponse.error);
+  throw new Error("failed generate with together");
 };
 
 const generateLogoWithHF = async (prompt: string) => {
@@ -73,8 +71,8 @@ const generateLogoWithHF = async (prompt: string) => {
   const arrayBuffer = await response.arrayBuffer();
   if (!response.ok) {
     const text = Buffer.from(arrayBuffer).toString("utf-8");
-    console.error("HF error: ", text);
-    throw new Error("Failed generate with HF");
+    console.error("HF ERROR: ", text);
+    throw new Error("failed generate logo with HF");
   }
   const base64Data = Buffer.from(arrayBuffer).toString("base64");
   return convertToBase64Image(base64Data);
@@ -84,8 +82,8 @@ export const generateLogo = async (values: FormLogoValues): Promise<string> => {
   const prompt = generatePrompt(values);
   try {
     return await generateLogoWithTogether(prompt);
-  } catch (error) {
-    console.error("Togetger Failed: ", error);
+  } catch (e) {
+    console.error("Together Failed:", e);
     return await generateLogoWithHF(prompt);
   }
 };
