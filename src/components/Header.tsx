@@ -5,8 +5,8 @@ import { Button } from "./ui/button";
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 border-b-[1px] border-foreground/10">
-      <nav className="flex max-w-7xl w-full mx-auto  items-center justify-between h-14 px-4">
+    <header className="sticky top-0 border-b-[1px] border-foreground/10 bg-background/70 backdrop-blur-lg z-50">
+      <nav className="flex max-w-7xl w-full mx-auto items-center justify-between h-14 px-4">
         <Link href="/" className="text-xl font-bold">
           AI LogoMaker
         </Link>
