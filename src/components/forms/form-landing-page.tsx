@@ -11,7 +11,7 @@ export const FormLandingPage = () => {
     <div className="flex gap-4">
       <Input
         className="sm:w-96 w-52"
-        placeholder="Your logo name"
+        placeholder="Enter your logo name here..."
         value={name}
         onChange={(e) => setName(e.target.value)}
       />

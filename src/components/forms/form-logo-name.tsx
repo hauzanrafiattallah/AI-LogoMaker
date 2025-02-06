@@ -70,7 +70,7 @@ export const FormLogoName = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Ex. Sukro" {...field} />
+                    <Input placeholder="Ex. AquaWave" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

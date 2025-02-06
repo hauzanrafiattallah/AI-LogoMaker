@@ -68,7 +68,7 @@ export const FormLogoDescription = () => {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      placeholder="Ex. Sukro is a roasted peanut snack. the logo should contains peanut and fire to represent it is roasted"
+                      placeholder="Ex. AquaWave is a bottled water brand. The logo should have a water droplet and wave to represent freshness and purity."
                       {...field}
                     />
                   </FormControl>
