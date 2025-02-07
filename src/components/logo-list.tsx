@@ -10,28 +10,34 @@ import Link from "next/link";
 
 const LogoItem = ({ logo }: { logo: UsersImagesSelect }) => {
   return (
-    <div className="flex flex-col gap-2 place-items-center">
-      <Image
-        src={logo.image}
-        alt={logo.name}
-        width={0}
-        height={0}
-        className="size-56 rounded-lg"
-      />
+    <div className="flex flex-col gap-2 items-center w-full max-w-xs">
+      <div className="w-full aspect-square relative">
+        <Image
+          src={logo.image}
+          alt={logo.name}
+          layout="fill"
+          objectFit="contain"
+          className="rounded-lg"
+        />
+      </div>
       <Button asChild>
-        <a href={logo.name} download={`${logo.name}.png`}>
+        <a
+          href={logo.name}
+          download={`${logo.name}.png`}
+          className="flex items-center gap-2"
+        >
           <Download /> Download
         </a>
       </Button>
-      <h3 className="font-semibold text-lg mt-4">{logo.name}</h3>
-      <p className="text-center line-clamp-2">{logo.description}</p>
+      <h3 className="font-semibold text-lg mt-4 text-center">{logo.name}</h3>
+      <p className="text-center line-clamp-2 px-2">{logo.description}</p>
     </div>
   );
 };
 
 const EmptyState = () => {
   return (
-    <div className="flex flex-col gap-6 place-items-center mx-auto py-24">
+    <div className="flex flex-col gap-6 items-center mx-auto py-24 text-center">
       <h2 className="font-bold text-3xl">
         You don&apos;t have any generated logo
       </h2>
@@ -56,7 +62,7 @@ export const LogoList = async () => {
               <Link href="/create">Generate new logo</Link>
             </Button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 mt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
             {logos.map((logo) => (
               <LogoItem key={logo.id} logo={logo} />
             ))}

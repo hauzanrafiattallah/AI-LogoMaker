@@ -17,7 +17,8 @@ export default function Home() {
         logos for your business.
       </p>
       <FormLandingPage />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-24">
+      <h2 className="text-2xl font-black text-primary mt-20">Popular Logos</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
         {arr.map((v, i) => (
           <Image
             key={i}
