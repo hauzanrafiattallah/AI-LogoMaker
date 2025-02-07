@@ -51,7 +51,7 @@ export const LogoList = async () => {
       {logos.length !== 0 && (
         <>
           <div className="flex flex-row justify-between w-full self-start">
-            <h2 className="font-bold text-3xl">Recent Logog</h2>
+            <h2 className="font-bold text-3xl">Recent Logo</h2>
             <Button>
               <Link href="/create">Generate new logo</Link>
             </Button>
