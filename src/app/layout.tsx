@@ -12,7 +12,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "AI LogoMaker",
-  description: "Create a logo for your brand",
+  description: "Create a logo with AI",
 };
 
 export default function RootLayout({
